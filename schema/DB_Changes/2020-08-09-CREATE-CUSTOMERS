@@ -1,0 +1,13 @@
+CREATE TABLE `rentable-lite-api`.`customers` (
+  `customer_id` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(45) NULL,
+  `last_name` VARCHAR(45) NULL,
+  `address_1` VARCHAR(45) NULL,
+  `address_2` VARCHAR(45) NULL,
+  `city` VARCHAR(45) NULL,
+  `state` VARCHAR(45) NULL,
+  `zip` VARCHAR(45) NULL,
+  `phone` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
+  PRIMARY KEY (`customer_id`),
+  UNIQUE INDEX `customer_id_UNIQUE` (`customer_id` ASC) VISIBLE);

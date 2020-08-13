@@ -1,6 +1,7 @@
 const express   = require('express');
 const router    = express.Router();
-const Item      = require('../models/item'); 
+const ItemModel = require('../models/item'); 
+const Item      = new ItemModel();
 
 // GET INDEX
 router.get('/', Item.getAllItems);

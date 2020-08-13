@@ -7,6 +7,7 @@ const app           = express();
 // IMPORT ROUTES
 const itemRoutes        = require('./api/routes/items');
 const customerRoutes    = require('./api/routes/customers');
+const userRoutes        = require('./api/routes/users');
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
@@ -28,6 +29,7 @@ app.use((req, res, next) => {
 
 app.use('/items', itemRoutes);
 app.use('/customers', customerRoutes);
+app.use('/users', userRoutes);
 
 // CATCH ANY OTHER ROUTES HERE WITH ERRORS BY ELIMINATING THE URL PARAM
 app.use((req, res, next) => {
