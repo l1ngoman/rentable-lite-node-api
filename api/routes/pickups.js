@@ -1,6 +1,6 @@
 const express   = require('express');
 const router    = express.Router();
-const { getAllPickups, getPickup, createNewPickup, updatePickup, deletePickup } = require('../models/pickup'); 
+const { getAllPickups, getPickup, createNewPickup, updatePickup, deletePickup } = require('../controllers/pickups'); 
 
 // GET INDEX
 router.get('/', getAllPickups);

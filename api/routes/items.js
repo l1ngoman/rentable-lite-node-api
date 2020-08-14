@@ -1,6 +1,6 @@
 const express   = require('express');
 const router    = express.Router();
-const { getAllItems, getItem, createNewItem, updateItem, deleteItem } = require('../models/item'); 
+const { getAllItems, getItem, createNewItem, updateItem, deleteItem } = require('../controllers/items'); 
 
 // GET INDEX
 router.get('/', getAllItems);

@@ -1,6 +1,6 @@
 const express   = require('express');
 const router    = express.Router();
-const { getAllCustomers, getCustomer, createNewCustomer, updateCustomer, deleteCustomer } = require('../models/customer'); 
+const { getAllCustomers, getCustomer, createNewCustomer, updateCustomer, deleteCustomer } = require('../controllers/customers'); 
 
 // GET INDEX
 router.get('/', getAllCustomers);
