@@ -1,20 +1,20 @@
 const express   = require('express');
 const router    = express.Router();
-const Customer  = require('../models/customer'); 
+const { getAllCustomers, getCustomer, createNewCustomer, updateCustomer, deleteCustomer } = require('../models/customer'); 
 
 // GET INDEX
-router.get('/', Customer.getAllCustomers);
+router.get('/', getAllCustomers);
 
 // GET SHOW
-router.get('/:id', Customer.getCustomer);
+router.get('/:id', getCustomer);
 
 // CREATE
-router.post('/', Customer.createNewCustomer);
+router.post('/', createNewCustomer);
 
 // DELETE
-router.delete('/:id', Customer.deleteCustomer);
+router.delete('/:id', deleteCustomer);
 
 // UPDATE
-router.put('/:id', Customer.updateCustomer);
+router.put('/:id', updateCustomer);
 
 module.exports = router;

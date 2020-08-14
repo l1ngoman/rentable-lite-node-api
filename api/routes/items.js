@@ -1,21 +1,20 @@
 const express   = require('express');
 const router    = express.Router();
-const ItemModel = require('../models/item'); 
-const Item      = new ItemModel();
+const { getAllItems, getItem, createNewItem, updateItem, deleteItem } = require('../models/item'); 
 
 // GET INDEX
-router.get('/', Item.getAllItems);
+router.get('/', getAllItems);
 
 // GET SHOW
-router.get('/:id', Item.getItem);
+router.get('/:id', getItem);
 
 // CREATE
-router.post('/', Item.createNewItem);
+router.post('/', createNewItem);
 
 // DELETE
-router.delete('/:id', Item.deleteItem);
+router.delete('/:id', deleteItem);
 
 // UPDATE
-router.put('/:id', Item.updateItem);
+router.put('/:id', updateItem);
 
 module.exports = router;
