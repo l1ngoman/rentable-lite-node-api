@@ -2,7 +2,7 @@ const { mysqlConfig } = require('../../config');
 const mysql  = require('mysql'); // https://www.npmjs.com/package/mysql
 const connection = mysql.createConnection(mysqlConfig);
 
-const getAllPickups = (req, res) => {
+exports.getAllPickups = (req, res) => {
     const sql = 'SELECT * FROM pickups ORDER BY order_number ASC';
     connection.query(sql, (error, result) => {
         if(error) {
@@ -15,7 +15,7 @@ const getAllPickups = (req, res) => {
     })
 };
 
-const getPickup = (req, res) => {
+exports.getPickup = (req, res) => {
     const pickup_id = parseInt(req.params.id);
     const sql = (`
         SELECT  p.order_number as Pickup_Number, p.status as Pickup_Status
@@ -42,9 +42,9 @@ const getPickup = (req, res) => {
     });
 };
     
-const createNewPickup = (req, res) => {
-    const { order_number, rental_id, status_open } = req.body;
-    const sql = `INSERT INTO pickups ( order_number, rental_id, status_open) VALUES('${order_number}', '${rental_id}', '${status_open}')`;
+exports.createNewPickup = (req, res) => {
+    const { order_number, pickup_date, rental_id, status } = req.body;
+    const sql = `INSERT INTO pickups ( order_number, pickup_date, rental_id, status) VALUES('${order_number}', '${pickup_date}', '${rental_id}', '${status}')`;
     connection.query(sql, (error, result) => {
         if(error) {
             throw error;
@@ -59,14 +59,15 @@ const createNewPickup = (req, res) => {
     });
 };
     
-const updatePickup = (req, res) => {
+exports.updatePickup = (req, res) => {
     const pickup_id = parseInt(req.params.id)
-    const { order_number, rental_id, status_open} = req.body;
+    const { order_number, pickup_date, rental_id, status } = req.body;
     const sql = (`
                 UPDATE pickups 
                 SET order_number = '${order_number}', 
+                pickup_date = '${pickup_date}', 
                 rental_id = '${rental_id}', 
-                status_open = '${status_open}' 
+                status = '${status}' 
                 WHERE pickup_id = ${pickup_id}`
     );
     connection.query(sql, (error, result) => {
@@ -83,7 +84,7 @@ const updatePickup = (req, res) => {
     });
 };
     
-const deletePickup = (req, res) => {
+exports.deletePickup = (req, res) => {
     const pickup_id = parseInt(req.params.id);
     const sql = `DELETE FROM pickups WHERE pickup_id = ${pickup_id}`;
 
@@ -95,12 +96,4 @@ const deletePickup = (req, res) => {
             message: `Pickup with ID: ${pickup_id} deleted successfully.`
         });
     });
-};
-
-module.exports = {
-    getAllPickups,
-    getPickup,
-    createNewPickup,
-    updatePickup,
-    deletePickup
 };

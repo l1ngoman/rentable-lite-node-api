@@ -1,6 +1,7 @@
 CREATE TABLE `rentable-lite-api`.`rentals` (
   `rental_id` INT NOT NULL AUTO_INCREMENT,
   `order_number` VARCHAR(45) NOT NULL,
+  `order_date` DATE NOT NULL,
   `customer_id` INT NOT NULL,
   `item_id` INT NOT NULL,
   `status` VARCHAR(45) NOT NULL,

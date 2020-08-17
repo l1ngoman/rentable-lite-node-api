@@ -2,7 +2,7 @@ const { mysqlConfig } = require('../../config');
 const mysql  = require('mysql'); // https://www.npmjs.com/package/mysql
 const connection = mysql.createConnection(mysqlConfig);
 
-const getAllItems = (req, res) => {
+exports.getAllItems = (req, res) => {
     const sql = 'SELECT * FROM items ORDER BY author_last_name';
     connection.query(sql, (error, result) => {
         if(error) {
@@ -15,7 +15,7 @@ const getAllItems = (req, res) => {
     })
 };
 
-const getItem = (req, res) => {
+exports.getItem = (req, res) => {
     const item_id = parseInt(req.params.id);
     const sql = `SELECT * FROM items WHERE item_id = ${item_id}`;
     connection.query(sql, (error, result) => {
@@ -29,7 +29,7 @@ const getItem = (req, res) => {
     });
 };
 
-const createNewItem = (req, res) => {
+exports.createNewItem = (req, res) => {
     const { name, author_first_name, author_last_name, serial_number } = req.body;
     const sql = `INSERT INTO items (name, author_first_name, author_last_name, serial_number) VALUES('${name}', '${author_first_name}', '${author_last_name}', '${serial_number}')`;
     connection.query(sql, (error, result) => {
@@ -46,7 +46,7 @@ const createNewItem = (req, res) => {
     });
 };
 
-const updateItem = (req, res) => {
+exports.updateItem = (req, res) => {
     const item_id = parseInt(req.params.id)
     const { name, author_first_name, author_last_name, serial_number } = req.body;
     const sql = `UPDATE items SET name = '${name}', author_first_name = '${author_first_name}', author_last_name = '${author_last_name}', serial_number = '${serial_number}' WHERE item_id = ${item_id}`;
@@ -66,7 +66,7 @@ const updateItem = (req, res) => {
     )
 };
 
-const deleteItem = (req, res) => {
+exports.deleteItem = (req, res) => {
     const item_id = parseInt(req.params.id);
     const sql = `DELETE FROM items WHERE item_id = ${item_id}`;
 
@@ -78,12 +78,4 @@ const deleteItem = (req, res) => {
             message: `Item with ID: ${item_id} deleted successfully.`
         });
     });
-};
-
-module.exports = {
-    getAllItems,
-    getItem,
-    createNewItem,
-    updateItem,
-    deleteItem
 };

@@ -1,7 +1,8 @@
 CREATE TABLE `rentable-lite-api`.`pickups` (
   `pickup_id` INT NOT NULL AUTO_INCREMENT,
   `order_number` VARCHAR(45) NOT NULL,
+  `pickup_date` DATE NOT NULL,
   `rental_id` VARCHAR(45) NOT NULL,
-  `status_open` TINYINT(1) NOT NULL,
+  `status` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`pickup_id`),
   UNIQUE INDEX `pickup_id_UNIQUE` (`pickup_id` ASC) VISIBLE);

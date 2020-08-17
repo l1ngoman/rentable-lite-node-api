@@ -1,21 +1,21 @@
 const express       = require('express');
 const router        = express.Router();
 const validateAuth  = require('../middleware/validate-auth');
-const { getAllItems, getItem, createNewItem, updateItem, deleteItem } = require('../controllers/items'); 
+const Items         = require('../controllers/items'); 
 
 // GET INDEX
-router.get('/', validateAuth, getAllItems);
+router.get('/', validateAuth, Items.getAllItems);
 
 // GET SHOW
-router.get('/:id', validateAuth, getItem);
+router.get('/:id', validateAuth, Items.getItem);
 
 // CREATE
-router.post('/', validateAuth, createNewItem);
+router.post('/', validateAuth, Items.createNewItem);
 
 // DELETE
-router.delete('/:id', validateAuth, deleteItem);
+router.delete('/:id', validateAuth, Items.deleteItem);
 
 // UPDATE
-router.put('/:id', validateAuth, updateItem);
+router.put('/:id', validateAuth, Items.updateItem);
 
 module.exports = router;
