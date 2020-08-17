@@ -1,20 +1,21 @@
-const express   = require('express');
-const router    = express.Router();
+const express       = require('express');
+const router        = express.Router();
+const validateAuth  = require('../middleware/validate-auth');
 const { getAllPickups, getPickup, createNewPickup, updatePickup, deletePickup } = require('../controllers/pickups'); 
 
 // GET INDEX
-router.get('/', getAllPickups);
+router.get('/', validateAuth, getAllPickups);
 
 // GET SHOW
-router.get('/:id', getPickup);
+router.get('/:id', validateAuth, getPickup);
 
 // CREATE
-router.post('/', createNewPickup);
+router.post('/', validateAuth, createNewPickup);
 
 // DELETE
-router.delete('/:id', deletePickup);
+router.delete('/:id', validateAuth, deletePickup);
 
 // UPDATE
-router.put('/:id', updatePickup);
+router.put('/:id', validateAuth, updatePickup);
 
 module.exports = router;

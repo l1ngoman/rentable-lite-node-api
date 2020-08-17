@@ -2,7 +2,7 @@ const { mysqlConfig } = require('../../config');
 const mysql  = require('mysql'); // https://www.npmjs.com/package/mysql
 const connection = mysql.createConnection(mysqlConfig);
 
-const getAllCustomers = (req, res) => {
+exports.getAllCustomers = (req, res) => {
     const sql = 'SELECT * FROM customers ORDER BY last_name';
     connection.query(sql, (error, result) => {
         if(error) {
@@ -15,7 +15,7 @@ const getAllCustomers = (req, res) => {
     })
 };
 
-const getCustomer = (req, res) => {
+exports.getCustomer = (req, res) => {
     const customer_id = parseInt(req.params.id);
     const sql = `SELECT * FROM customers WHERE customer_id = ${customer_id}`;
     connection.query(sql, (error, result) => {
@@ -29,7 +29,7 @@ const getCustomer = (req, res) => {
     });
 };
 
-const createNewCustomer = (req, res) => {
+exports.createNewCustomer = (req, res) => {
     const { first_name, last_name, address_1, address_2, city, state, zip, phone, email } = req.body;
     const sql = (`  
             INSERT INTO customers (first_name, last_name, address_1, address_2, city, state, zip, phone, email) 
@@ -49,7 +49,7 @@ const createNewCustomer = (req, res) => {
     });
 };
 
-const updateCustomer = (req, res) => {
+exports.updateCustomer = (req, res) => {
     const customer_id = parseInt(req.params.id)
     const { first_name, last_name, address_1, address_2, city, state, zip, phone, email } = req.body;
     const sql = (`
@@ -81,7 +81,7 @@ const updateCustomer = (req, res) => {
     )
 };
 
-const deleteCustomer = (req, res) => {
+exports.deleteCustomer = (req, res) => {
     const customer_id = parseInt(req.params.id);
     const sql = `DELETE FROM customers WHERE customer_id = ${customer_id}`;
 
@@ -93,12 +93,4 @@ const deleteCustomer = (req, res) => {
             message: `Customer with ID: ${customer_id} deleted successfully.`
         });
     });
-};
-
-module.exports = {
-    getAllCustomers,
-    getCustomer,
-    createNewCustomer,
-    updateCustomer,
-    deleteCustomer
 };

@@ -1,20 +1,21 @@
-const express   = require('express');
-const router    = express.Router();
+const express       = require('express');
+const router        = express.Router();
+const validateAuth  = require('../middleware/validate-auth');
 const { getAllRentals, getRental, createNewRental, updateRental, deleteRental } = require('../controllers/rentals'); 
 
 // GET INDEX
-router.get('/', getAllRentals);
+router.get('/', validateAuth, getAllRentals);
 
 // GET SHOW
-router.get('/:id', getRental);
+router.get('/:id', validateAuth, getRental);
 
 // CREATE
-router.post('/', createNewRental);
+router.post('/', validateAuth, createNewRental);
 
 // DELETE
-router.delete('/:id', deleteRental);
+router.delete('/:id', validateAuth, deleteRental);
 
 // UPDATE
-router.put('/:id', updateRental);
+router.put('/:id', validateAuth, updateRental);
 
 module.exports = router;
