@@ -1,9 +1,10 @@
 const express   = require('express');
 const router    = express.Router();
+const validateAuth = require('../middleware/validate-auth');
 const { getAllCustomers, getCustomer, createNewCustomer, updateCustomer, deleteCustomer } = require('../controllers/customers'); 
 
 // GET INDEX
-router.get('/', getAllCustomers);
+router.get('/', validateAuth, getAllCustomers);
 
 // GET SHOW
 router.get('/:id', getCustomer);

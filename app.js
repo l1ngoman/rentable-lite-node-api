@@ -1,8 +1,25 @@
 // IMPORT DEPENDENCIES
+(process.env.NODE_ENV !== 'production') 
+    && require('dotenv').config({
+        path: './develop.env'
+    });                                         // https://www.npmjs.com/package/dotenv
 const express       = require('express');       // https://expressjs.com/
 const morgan        = require('morgan');        // https://www.npmjs.com/package/morgan
 const bodyParser    = require('body-parser');   // https://www.npmjs.com/package/body-parser
 const app           = express();
+
+// const { sequelizeConfig }   = require('./config');
+// const Sequelize = require('sequelize');
+// const sequelize             = new Sequelize(sequelizeConfig);
+
+// sequelize
+//   .authenticate()
+//   .then(() => {
+//     console.log('Connection has been established successfully.');
+//   })
+//   .catch(err => {
+//     console.error('Unable to connect to the database:', err);
+//   });
 
 // IMPORT ROUTES
 const itemRoutes        = require('./api/routes/items');
@@ -31,7 +48,7 @@ app.use((req, res, next) => {
 
 app.use('/items', itemRoutes);
 app.use('/customers', customerRoutes);
-app.use('/users', userRoutes);
+app.use('/user', userRoutes);
 app.use('/rentals', rentalRoutes);
 app.use('/pickups', pickupRoutes);
 

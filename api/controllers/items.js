@@ -1,6 +1,6 @@
-const config = require('../../config');
+const { mysqlConfig } = require('../../config');
 const mysql  = require('mysql'); // https://www.npmjs.com/package/mysql
-const connection = mysql.createConnection(config);
+const connection = mysql.createConnection(mysqlConfig);
 
 const getAllItems = (req, res) => {
     const sql = 'SELECT * FROM items ORDER BY author_last_name';
@@ -36,7 +36,7 @@ const createNewItem = (req, res) => {
         if(error) {
             throw error;
         }
-        res.status(200).json({
+        res.status(201).json({
             message: `Item successfully created.`,
             responseObject: {
                 id: result.insertId,
