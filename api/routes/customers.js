@@ -4,7 +4,6 @@ const validateAuth  = require('../middleware/validate-auth');
 const Customers     = require('../controllers/customers'); 
 
 // GET INDEX
-// router.get('/', Customers.getAllCustomers);
 router.get('/', validateAuth, Customers.getAllCustomers);
 
 // GET SHOW

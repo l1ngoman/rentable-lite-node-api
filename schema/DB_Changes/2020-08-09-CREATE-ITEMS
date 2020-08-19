@@ -1,8 +1,0 @@
-CREATE TABLE `rentable-lite-api`.`items` (
-  `item_id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
-  `author_first_name` VARCHAR(45) NULL,
-  `author_last_name` VARCHAR(45) NULL,
-  `serial_number` VARCHAR(45) NULL,
-  PRIMARY KEY (`item_id`),
-  UNIQUE INDEX `item_id_UNIQUE` (`item_id` ASC) VISIBLE);
