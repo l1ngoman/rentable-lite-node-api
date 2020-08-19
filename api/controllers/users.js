@@ -76,27 +76,29 @@ exports.logInUser = (req, res) => {
     if(req.body.email && req.body.password) {
 
         const { email, password } = req.body;
-        const sql = `SELECT password FROM users WHERE email='${email}'`;
+        const sql = `SELECT user_id, first_name, last_name, password FROM users WHERE email='${email}'`;
     
         connection.query(sql, (error, result) => {
             if (error){
+                console.log(error);
                 return res.status(401).json({
                     message: 'Authentication failed'
                 });
-                console.log(error);
             }
             bcrypt.compare(password, result[0].password, (err, compareSuccess) => {
                 // ATG:: IF ERROR EXISTS OR compareSuccess IS FALSE, THROW ERROR MESSAGE
                 if (err || !compareSuccess) {
+                    err && console.log(err);
                     return res.status(401).json({
                         message: 'Authentication failed.'
                     });
-                    err && console.log(err);
                 } else {
                     const token = jwt.sign(
                         {
                             email: result[0].email,
-                            user_id: result[0].user_id
+                            user_id: result[0].user_id,
+                            first_name: result[0].first_name,
+                            last_name: result[0].last_name
                         }, 
                         process.env.JWT_KEY, 
                         {

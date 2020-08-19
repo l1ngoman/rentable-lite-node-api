@@ -4,18 +4,23 @@ const validateAuth  = require('../middleware/validate-auth');
 const Customers     = require('../controllers/customers'); 
 
 // GET INDEX
+// router.get('/', Customers.getAllCustomers);
 router.get('/', validateAuth, Customers.getAllCustomers);
 
 // GET SHOW
-router.get('/:id', validateAuth, Customers.getCustomer);
+router.get('/:id', Customers.getCustomer);
+// router.get('/:id', validateAuth, Customers.getCustomer);
 
 // CREATE
-router.post('/', validateAuth, Customers.createNewCustomer);
+router.post('/', Customers.createNewCustomer);
+// router.post('/', validateAuth, Customers.createNewCustomer);
 
 // DELETE
-router.delete('/:id', validateAuth, Customers.deleteCustomer);
+router.delete('/:id', Customers.deleteCustomer);
+// router.delete('/:id', validateAuth, Customers.deleteCustomer);
 
 // UPDATE
-router.put('/:id', validateAuth, Customers.updateCustomer);
+router.put('/:id', Customers.updateCustomer);
+// router.put('/:id', validateAuth, Customers.updateCustomer);
 
 module.exports = router;

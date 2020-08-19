@@ -48,7 +48,7 @@ app.use((req, res, next) => {
 
 app.use('/items', itemRoutes);
 app.use('/customers', customerRoutes);
-app.use('/user', userRoutes);
+app.use('/users', userRoutes);
 app.use('/rentals', rentalRoutes);
 app.use('/pickups', pickupRoutes);
 

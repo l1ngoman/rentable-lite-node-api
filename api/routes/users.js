@@ -3,22 +3,22 @@ const router        = express.Router();
 const validateAuth  = require('../middleware/validate-auth');
 const Users         = require('../controllers/users'); 
 
-// SIGNUP '/user/signup'
-router.post('/signup', Users.createNewUser);
+// SIGNUP '/users'
+router.post('/', Users.createNewUser);
 
-// LOGIN '/user/login'
-router.get('/login', Users.logInUser);
+// LOGIN '/users/login'
+router.post('/login', Users.logInUser);
 
-// GET '/user/3'
+// GET '/users/3'
 router.get('/:id', validateAuth, Users.getUser);
 
-// CHANGE PASSWORD
+// CHANGE PASSWORD '/users/3'
 router.patch('/:id', validateAuth, Users.changePassword);
 
-// UPDATE '/user/2'
+// UPDATE '/users/2'
 router.put('/:id', validateAuth, Users.updateUser);
 
-// DELETE '/user/4'
+// DELETE '/users/4'
 router.delete('/:id', validateAuth, Users.deleteUser);
 
 module.exports = router;
