@@ -22,12 +22,16 @@ exports.getCustomer = (req, res) => {
         if(error) {
             throw error;
         }
-        const sql2 = `  SELECT r.rental_id, r.order_number as rental_order_number, r.order_date, r.status,
-                            i.item_id, i.name, i.author_first_name, i.author_last_name, i.serial_number,
-                            p.pickup_id, p.order_number as pickup_order_number
+        // ATG:: NOW QUERY FOR ALL RELATED RENTALS FOR THIS CUSTOMER
+        const sql2 = `  SELECT r.rental_id, r.rental_number, r.rental_date, r.delivery_date, r.rental_status, r.delivery_fee,
+                            rli.rental_item_id, rli.unit_cost, rli.unit_tax_amount,
+                            i.item_id, i.item_name, i.item_description, i.tracking_number, i.serial_number,
+                            p.pickup_id, p.pickup_number, p.pickup_date, p.pickup_actual_date, p.pickup_status 
                         FROM rentals r
+                        LEFT JOIN rental_line_items rli
+                            ON r.rental_id = rli.rental_id
                         LEFT JOIN items i
-                            ON r.item_id = i.item_id
+                            ON rli.item_id = i.item_id
                         LEFT JOIN pickups p
                             ON r.rental_id = p.pickup_id
                         WHERE customer_id = ${customer_id}`;
@@ -36,8 +40,10 @@ exports.getCustomer = (req, res) => {
             if(error2) {
                 throw error2;
             }
-            const sql3 = `  SELECT p.pickup_id, p.order_number as pickup_order_number, p.pickup_date, p.status,
-                                r.rental_id, r.order_number as rental_order_number, i.*
+            // ATG:: NOW QUERY FOR ALL RELATED PICKUPS FOR THIS CUSTOMER
+            const sql3 = `  SELECT p.pickup_id, p.pickup_number, p.pickup_date, p.pickup_actual_date, p.pickup_status,
+                                r.rental_id, r.rental_number,
+                            i.item_id, i.item_name, i.item_description, i.tracking_number, i.serial_number
                             FROM pickups p
                             LEFT JOIN rentals r
                                 ON p.rental_id = r.rental_id
@@ -50,6 +56,13 @@ exports.getCustomer = (req, res) => {
                     throw error3;
                 }
 
+                // NEED TO FIGURE OUT HOW TO SORT THE ARRAYS
+                // let formattedRentals;
+                // if(result2.length > 0) {
+                //     for(let el in result2) {
+                //        result2[el].
+                //     }
+                // }
                 result[0]['rentals'] = result2;
                 result[0]['pickups'] = result3;
 

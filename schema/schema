@@ -29,7 +29,7 @@ CREATE TABLE `items` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `rental_line_items` (
-  `line_item_id` int NOT NULL AUTO_INCREMENT,
+  `rental_item_id` int NOT NULL AUTO_INCREMENT,
   `rental_id` int NOT NULL,
   `item_id` int NOT NULL,
   `unit_cost` float(12,2) NOT NULL,
