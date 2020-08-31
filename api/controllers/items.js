@@ -1,4 +1,5 @@
 const { mysqlConfig } = require('../../config');
+const moment = require('moment');
 const mysql  = require('mysql'); // https://www.npmjs.com/package/mysql
 const connection = mysql.createConnection(mysqlConfig);
 
@@ -80,7 +81,7 @@ exports.createNewItem = (req, res) => {
         res.status(201).json({
             message: `Item successfully created.`,
             responseObject: {
-                id: result.insertId,
+                item_id: result.insertId,
                 ...req.body
             }
         });
@@ -95,7 +96,7 @@ exports.updateItem = (req, res) => {
                         item_description = '${item_description}', 
                         tracking_number = '${tracking_number}', 
                         serial_number = '${serial_number}',
-                        purchase_date = '${purchase_date}',
+                        purchase_date = '${moment(purchase_date).format('YYYY-MM-DD')}',
                         purchase_cost = '${purchase_cost}'
                     WHERE item_id = ${item_id}`;
     
@@ -106,7 +107,7 @@ exports.updateItem = (req, res) => {
         res.status(200).json({
             message: `Item with ID: ${item_id} updated successfully.`,
             responseObject: {
-                user_id,
+                item_id,
                 ...req.body
             }
         });
