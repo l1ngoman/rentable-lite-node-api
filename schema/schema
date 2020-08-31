@@ -23,6 +23,7 @@ CREATE TABLE `items` (
   `serial_number` varchar(45) DEFAULT NULL,
   `purchase_date` date NOT NULL,
   `purchase_cost` float(12,2) NOT NULL,
+  `item_status` VARCHAR(45) NOT NULL,
   `insert_timestamp` datetime NOT NULL,
   PRIMARY KEY (`item_id`),
   UNIQUE KEY `item_id_UNIQUE` (`item_id`)
@@ -35,6 +36,7 @@ CREATE TABLE `rental_line_items` (
   `unit_cost` float(12,2) NOT NULL,
   `unit_tax_amount` float(12,2) NOT NULL,
   `insert_timestamp` datetime NOT NULL,
+  `active_rental` tinyint(1) NOT NULL,
   PRIMARY KEY (`line_item_id`),
   UNIQUE KEY `line_item_id_UNIQUE` (`line_item_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -42,7 +44,7 @@ CREATE TABLE `rental_line_items` (
 CREATE TABLE `pickup_line_items` (
   `pickup_item_id` int NOT NULL AUTO_INCREMENT,
   `pickup_id` int NOT NULL,
-  `item_id` int NOT NULL,
+  `rental_item_id` int NOT NULL,
   `insert_timestamp` datetime NOT NULL,
   PRIMARY KEY (`pickup_item_id`),
   UNIQUE KEY `pickup_item_id_UNIQUE` (`pickup_item_id`)

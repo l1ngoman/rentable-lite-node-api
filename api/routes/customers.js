@@ -10,6 +10,12 @@ router.get('/', validateAuth, Customers.getAllCustomers);
 router.get('/:id', Customers.getCustomer);
 // router.get('/:id', validateAuth, Customers.getCustomer);
 
+// GET CUSTOMER RENTALS
+router.get('/:id/rentals', Customers.getCustomerRentals);
+
+// GET CUSTOMER PICKUPS
+router.get('/:id/pickups', Customers.getCustomerPickups);
+
 // CREATE
 router.post('/', Customers.createNewCustomer);
 // router.post('/', validateAuth, Customers.createNewCustomer);
