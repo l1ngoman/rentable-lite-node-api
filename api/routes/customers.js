@@ -1,20 +1,31 @@
-const express   = require('express');
-const router    = express.Router();
-const Customer  = require('../models/customer'); 
+const express       = require('express');
+const router        = express.Router();
+const validateAuth  = require('../middleware/validate-auth');
+const Customers     = require('../controllers/customers'); 
 
 // GET INDEX
-router.get('/', Customer.getAllCustomers);
+router.get('/', validateAuth, Customers.getAllCustomers);
 
 // GET SHOW
-router.get('/:id', Customer.getCustomer);
+router.get('/:id', Customers.getCustomer);
+// router.get('/:id', validateAuth, Customers.getCustomer);
+
+// GET CUSTOMER RENTALS
+router.get('/:id/rentals', Customers.getCustomerRentals);
+
+// GET CUSTOMER PICKUPS
+router.get('/:id/pickups', Customers.getCustomerPickups);
 
 // CREATE
-router.post('/', Customer.createNewCustomer);
+router.post('/', Customers.createNewCustomer);
+// router.post('/', validateAuth, Customers.createNewCustomer);
 
 // DELETE
-router.delete('/:id', Customer.deleteCustomer);
+router.delete('/:id', Customers.deleteCustomer);
+// router.delete('/:id', validateAuth, Customers.deleteCustomer);
 
 // UPDATE
-router.put('/:id', Customer.updateCustomer);
+router.put('/:id', Customers.updateCustomer);
+// router.put('/:id', validateAuth, Customers.updateCustomer);
 
 module.exports = router;

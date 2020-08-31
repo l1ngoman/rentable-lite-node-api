@@ -1,0 +1,108 @@
+CREATE TABLE `customers` (
+  `customer_id` int NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(45) DEFAULT NULL,
+  `last_name` varchar(45) DEFAULT NULL,
+  `address_1` varchar(45) DEFAULT NULL,
+  `address_2` varchar(45) DEFAULT NULL,
+  `city` varchar(45) DEFAULT NULL,
+  `state` varchar(45) DEFAULT NULL,
+  `zip` varchar(45) DEFAULT NULL,
+  `phone` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `insert_timestamp` datetime NOT NULL,
+  PRIMARY KEY (`customer_id`),
+  UNIQUE KEY `customer_id_UNIQUE` (`customer_id`),
+  UNIQUE KEY `last_name_UNIQUE` (`last_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `items` (
+  `item_id` int NOT NULL AUTO_INCREMENT,
+  `item_name` varchar(45) NOT NULL,
+  `item_description` varchar(255) DEFAULT NULL,
+  `tracking_number` varchar(45) NOT NULL,
+  `serial_number` varchar(45) DEFAULT NULL,
+  `purchase_date` date NOT NULL,
+  `purchase_cost` float(12,2) NOT NULL,
+  `item_status` VARCHAR(45) NOT NULL,
+  `insert_timestamp` datetime NOT NULL,
+  PRIMARY KEY (`item_id`),
+  UNIQUE KEY `item_id_UNIQUE` (`item_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `rental_line_items` (
+  `rental_item_id` int NOT NULL AUTO_INCREMENT,
+  `rental_id` int NOT NULL,
+  `item_id` int NOT NULL,
+  `unit_cost` float(12,2) NOT NULL,
+  `unit_tax_amount` float(12,2) NOT NULL,
+  `insert_timestamp` datetime NOT NULL,
+  `active_rental` tinyint(1) NOT NULL,
+  PRIMARY KEY (`line_item_id`),
+  UNIQUE KEY `line_item_id_UNIQUE` (`line_item_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `pickup_line_items` (
+  `pickup_item_id` int NOT NULL AUTO_INCREMENT,
+  `pickup_id` int NOT NULL,
+  `rental_item_id` int NOT NULL,
+  `insert_timestamp` datetime NOT NULL,
+  PRIMARY KEY (`pickup_item_id`),
+  UNIQUE KEY `pickup_item_id_UNIQUE` (`pickup_item_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `pickups` (
+  `pickup_id` int NOT NULL AUTO_INCREMENT,
+  `pickup_number` varchar(45) NOT NULL,
+  `pickup_date` date NOT NULL,
+  `pickup_actual_date` date DEFAULT NULL,
+  `rental_id` int NOT NULL,
+  `pickup_status` varchar(45) NOT NULL,
+  `insert_timestamp` datetime NOT NULL,
+  PRIMARY KEY (`pickup_id`),
+  UNIQUE KEY `pickup_id_UNIQUE` (`pickup_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `rental_periods` (
+  `rental_period_id` int NOT NULL AUTO_INCREMENT,
+  `rental_period_name` varchar(45) NOT NULL,
+  `number_of_days` int DEFAULT NULL,
+  `insert_timestamp` datetime NOT NULL,
+  PRIMARY KEY (`rental_period_id`),
+  UNIQUE KEY `rental_period_id_UNIQUE` (`rental_period_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `rental_rates` (
+  `rental_rate_id` int NOT NULL AUTO_INCREMENT,
+  `rental_period_id` int NOT NULL,
+  `item_id` int NOT NULL,
+  `rental_rate` float(12,2) NOT NULL,
+  `insert_timestamp` datetime NOT NULL,
+  PRIMARY KEY (`rental_rate_id`),
+  UNIQUE KEY `rental_rate_id_UNIQUE` (`rental_rate_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `rentals` (
+  `rental_id` int NOT NULL AUTO_INCREMENT,
+  `rental_number` varchar(45) NOT NULL,
+  `rental_date` date NOT NULL,
+  `delivery_date` date NOT NULL,
+  `customer_id` int NOT NULL,
+  `rental_status` varchar(45) NOT NULL,
+  `item_id` int NOT NULL,
+  `delivery_fee` float(12,2) NOT NULL,
+  `insert_timestamp` datetime NOT NULL,
+  PRIMARY KEY (`rental_id`),
+  UNIQUE KEY `rental_id_UNIQUE` (`rental_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `users` (
+  `user_id` int NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(45) NOT NULL,
+  `last_name` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `insert_timestamp` datetime NOT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `user_id_UNIQUE` (`user_id`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

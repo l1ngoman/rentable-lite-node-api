@@ -1,16 +1,23 @@
 // HIDDEN SERVER SETTINGS
 
-// ONLY LOAD ENV FILES FOR DEVELOPMENT
-(process.env.NODE_ENV !== 'production') && require('dotenv').config();
+const { DB_USER, DB_HOST, DB_NAME, DB_PASSWORD, DB_INSECURE_AUTH } = process.env;
 
-const { DB_USER, DB_HOST, DB_DATABASE, DB_PASSWORD, DB_PORT } = process.env;
-
-const config = {
-    user: DB_USER,
-    host: DB_HOST,
-    database: DB_DATABASE,
-    password: DB_PASSWORD,
-    port: DB_PORT,
+const mysqlConfig = {
+    user:           DB_USER,
+    password:       DB_PASSWORD,
+    host:           DB_HOST,
+    database:       DB_NAME,
+    insecureAuth:   DB_INSECURE_AUTH
 };
 
-module.exports = config;
+// const sequelizeConfig = {
+//     database:        DB_NAME           || 'rentable-lite-api',
+//     user:            DB_USER           || 'atg',
+//     password:        DB_PASSWORD       || 'password',
+//     host:            DB_HOST           || 'localhost',
+//     dialect:         DB_DIALECT        || 'mysql',
+// };
+
+module.exports = {
+    mysqlConfig,
+};
