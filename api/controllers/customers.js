@@ -87,7 +87,14 @@ exports.getCustomerPickups = (req, res) => {
 };
 
 exports.createNewCustomer = (req, res) => {
-    const { first_name, last_name, address_1, address_2, city, state, zip, phone, email } = req.body;
+    let { first_name, last_name, address_1, address_2, city, state, zip, phone, email } = req.body;
+    // ATG:: USE JS ESCAPE LIBRARY TO ESCAPE SPECIAL CHARS BEFORE INSERTING THEM INTO THE DB
+    first_name = jsesc(first_name);
+    last_name  = jsesc(last_name);
+    address_1  = jsesc(address_1);
+    address_2  = jsesc(address_2);
+    city       = jsesc(city);
+    email      = jsesc(email);
     const sql = (`  
             INSERT INTO customers (first_name, last_name, address_1, address_2, city, state, zip, phone, email, insert_timestamp) 
             VALUES('${first_name}', '${last_name}', '${address_1}', '${address_2}', '${city}', '${state}', '${zip}', '${phone}', '${email}', '${moment().format('YYYY-MM-DD')}')
@@ -108,7 +115,14 @@ exports.createNewCustomer = (req, res) => {
 
 exports.updateCustomer = (req, res) => {
     const customer_id = parseInt(req.params.id)
-    const { first_name, last_name, address_1, address_2, city, state, zip, phone, email } = req.body;
+    let { first_name, last_name, address_1, address_2, city, state, zip, phone, email } = req.body;
+    // ATG:: USE JS ESCAPE LIBRARY TO ESCAPE SPECIAL CHARS BEFORE INSERTING THEM INTO THE DB
+    first_name = jsesc(first_name);
+    last_name  = jsesc(last_name);
+    address_1  = jsesc(address_1);
+    address_2  = jsesc(address_2);
+    city       = jsesc(city);
+    email      = jsesc(email);
     const sql = (`
         UPDATE customers 
         SET first_name  = '${first_name}', 
